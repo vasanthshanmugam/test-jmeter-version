@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.6" jmeter="5.6.3">
+    <TestPlan guiclass="TestPlanGui" testname="API Load Test Plan" enabled="true">
+        <hashTree>
+            <ThreadGroup guiclass="ThreadGroupGui" testname="Users Load Test" enabled="true">
+                <stringProp name="ThreadGroup.num_threads">10</stringProp>
+                <stringProp name="ThreadGroup.ramp_time">30</stringProp>
+                <stringProp name="ThreadGroup.duration">1800</stringProp>
+                <boolProp name="ThreadGroup.scheduler">true</boolProp>
+                <hashTree>
+                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API Request" enabled="true">
+                        <stringProp name="HTTPSampler.protocol">https</stringProp>
+                        <stringProp name="HTTPSampler.domain">jsonplaceholder.typicode.com</stringProp>
+                        <stringProp name="HTTPSampler.path">/posts/1</stringProp>
+                        <stringProp name="HTTPSampler.method">GET</stringProp>
+                    </HTTPSamplerProxy>
+                </hashTree>
+            </ThreadGroup>
+            <hashTree>
+                <ResultCollector guiclass="SummaryReportGui" testclass="ResultCollector" testname="Summary Report" enabled="true"/>
+                <ResultCollector guiclass="ViewResultsTreeGui" testclass="ResultCollector" testname="View Results Tree" enabled="true"/>
+                <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="true"/>
+            </hashTree>
+        </hashTree>
+    </TestPlan>
+</jmeterTestPlan>

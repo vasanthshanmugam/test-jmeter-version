@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.6" jmeter="5.6.3">
+    <TestPlan guiclass="TestPlanGui" testname="Recorded API Load Test" enabled="true">
+        <stringProp name="TestPlan.user_define_variables">
+            host=jsonplaceholder.typicode.com
+            scheme=https
+        </stringProp>
+        <hashTree>
+            <!-- HTTP Request Defaults -->
+            <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+                <stringProp name="HTTPSampler.domain">${host}</stringProp>
+                <stringProp name="HTTPSampler.protocol">${scheme}</stringProp>
+            </ConfigTestElement>
+            <hashTree/>
+
+            <!-- Thread Group -->
+            <ThreadGroup guiclass="ThreadGroupGui" testname="Thread Group" enabled="true">
+                <stringProp name="ThreadGroup.num_threads">1</stringProp>
+                <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+                <LoopController guiclass="LoopControlGui" testclass="LoopController" testname="Loop Controller" enabled="true">
+                    <intProp name="LoopController.loops">1</intProp>
+                </LoopController>
+            </ThreadGroup>
+            <hashTree>
+
+                <!-- Recording Controller -->
+                <GenericController guiclass="RecordingControllerGui" testclass="GenericController" testname="Recording Controller" enabled="true"/>
+                <hashTree/>
+
+                <!-- HTTP(S) Test Script Recorder -->
+                <TestBean guiclass="ProxyControlGui" testclass="ProxyControl" testname="HTTP(S) Test Script Recorder" enabled="true">
+                    <collectionProp name="ProxyControl.excludeds">
+                        <stringProp name="ProxyControl.excluded.1">.*\\.css</stringProp>
+                        <stringProp name="ProxyControl.excluded.2">.*\\.js</stringProp>
+                        <stringProp name="ProxyControl.excluded.3">.*\\.png</stringProp>
+                        <stringProp name="ProxyControl.excluded.4">.*\\.jpg</stringProp>
+                        <stringProp name="ProxyControl.excluded.5">.*\\.gif</stringProp>
+                    </collectionProp>
+                </TestBean>
+                <hashTree/>
+
+                <!-- HTTP Request -->
+                <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API GET Request" enabled="true">
+                    <stringProp name="HTTPSampler.path">/posts/1</stringProp>
+                    <stringProp name="HTTPSampler.method">GET</stringProp>
+                </HTTPSamplerProxy>
+                <hashTree/>
+
+                <!-- HTTP Cookie Manager -->
+                <ConfigTestElement guiclass="HttpCookieManagerGui" testclass="ConfigTestElement" testname="HTTP Cookie Manager" enabled="true"/>
+                <hashTree/>
+
+                <!-- View Results Tree -->
+                <ResultCollector guiclass="ViewResultsTreeGui" testclass="ResultCollector" testname="View Results Tree" enabled="true"/>
+                <hashTree/>
+
+            </hashTree>
+        </hashTree>
+    </TestPlan>
+</jmeterTestPlan>
